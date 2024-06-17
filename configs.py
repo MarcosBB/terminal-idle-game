@@ -1,5 +1,3 @@
-
-
 DEFAULT_PROPERTIES = {
     "farmer": 1,
     "cow": 0,

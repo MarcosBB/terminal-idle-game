@@ -12,7 +12,7 @@ menu = Menu(game)
 def on_press(key):
     for i in range(1, len(PROPERTIES) + 1):
         if key == keyboard.KeyCode.from_char(str(i)):
-            game.buy_property(PROPERTIES[i-1], 1)
+            game.buy_property(PROPERTIES[i - 1], 1)
             game.update_money_per_second()
             game.update_money_per_second_by_property()
 
@@ -28,5 +28,4 @@ with keyboard.Listener(on_press=on_press) as listener:
         game.earn_money()
         menu.print_menu()
         time.sleep(1)
-        os.system('clear')
-
+        os.system("clear")

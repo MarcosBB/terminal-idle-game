@@ -1,11 +1,18 @@
-from configs import DEFAULT_MONEY, DEFAULT_PROPERTIES, PROPERTIES_INCOME, PROPERTIES_VALUES, MULTIPLIER_OPTIONS
+from configs import (
+    DEFAULT_MONEY,
+    DEFAULT_PROPERTIES,
+    PROPERTIES_INCOME,
+    PROPERTIES_VALUES,
+    MULTIPLIER_OPTIONS,
+)
 
-class Game():
+
+class Game:
     def __init__(
-            self,
-            properties=DEFAULT_PROPERTIES,
-            money=DEFAULT_MONEY,
-        ):
+        self,
+        properties=DEFAULT_PROPERTIES,
+        money=DEFAULT_MONEY,
+    ):
         self.money = money
         self.properties = properties
         self.money_per_second = self.update_money_per_second()
@@ -22,19 +29,21 @@ class Game():
             self.properties[property_name] += quantity * self.get_multiplier
             return True
         return False
-    
+
     def update_money_per_second(self):
         self.money_per_second = 0
         for key in self.properties:
             self.money_per_second += self.properties[key] * PROPERTIES_INCOME[key]
         return self.money_per_second
-    
+
     def update_money_per_second_by_property(self):
         self.money_per_second_by_property = {}
         for key in self.properties:
-            self.money_per_second_by_property[key] = self.properties[key] * PROPERTIES_INCOME[key]
+            self.money_per_second_by_property[key] = (
+                self.properties[key] * PROPERTIES_INCOME[key]
+            )
         return self.money_per_second_by_property
-        
+
     def change_multiplier(self):
         multiplier_len = len(MULTIPLIER_OPTIONS)
         self.multiplier_index += 1
@@ -44,7 +53,6 @@ class Game():
     @property
     def get_multiplier(self):
         return MULTIPLIER_OPTIONS[self.multiplier_index]
-    
+
     def save(self):
         pass
-    
