@@ -1,5 +1,5 @@
 DEFAULT_PROPERTIES = {
-    "farmer": 1,
+    "farmer": 0,
     "cow": 0,
     "plantation": 0,
     "truck": 0,
@@ -32,4 +32,6 @@ PROPERTIES_INCOME = {
     "bank": 70,
 }
 
-MULTIPLIER_OPTIONS = [1, 10, 100]
+MAX_VALUE = "Max"
+
+MULTIPLIER_OPTIONS = [1, 10, 100, MAX_VALUE]

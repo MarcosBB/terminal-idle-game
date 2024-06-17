@@ -4,6 +4,7 @@ from configs import (
     PROPERTIES_INCOME,
     PROPERTIES_VALUES,
     MULTIPLIER_OPTIONS,
+    MAX_VALUE,
 )
 
 
@@ -24,11 +25,14 @@ class Game:
             self.money += self.properties[key] * PROPERTIES_INCOME[key]
 
     def buy_property(self, property_name, quantity=1):
-        if self.money >= PROPERTIES_VALUES[property_name] * self.get_multiplier:
+        if self.get_multiplier == MAX_VALUE:
+            possible_quantity = (self.money // PROPERTIES_VALUES[property_name]) 
+            self.money -= possible_quantity * PROPERTIES_VALUES[property_name]
+            self.properties[property_name] += possible_quantity
+
+        elif self.money >= PROPERTIES_VALUES[property_name] * self.get_multiplier:
             self.money -= PROPERTIES_VALUES[property_name] * self.get_multiplier
             self.properties[property_name] += quantity * self.get_multiplier
-            return True
-        return False
 
     def update_money_per_second(self):
         self.money_per_second = 0

@@ -1,4 +1,4 @@
-from configs import DEFAULT_PROPERTIES, PROPERTIES_INCOME
+from configs import DEFAULT_PROPERTIES, PROPERTIES_INCOME, MAX_VALUE
 
 
 class Menu:
@@ -6,7 +6,12 @@ class Menu:
         self.game = game
 
     def header(self):
-        return f"Money: {self.game.money}$ | Money per second: {self.game.money_per_second}$ | Multiplier: {self.game.get_multiplier}X"
+        multiplier_symbol = "X" if MAX_VALUE != self.game.get_multiplier else ""
+        return (
+            f"Money: {self.game.money}$ "
+            + f"| Money per second: {self.game.money_per_second}$ "
+            + f"| Multiplier: {str(self.game.get_multiplier) + multiplier_symbol}" 
+        )
 
     def footer(self):
         return f"(1-{len(DEFAULT_PROPERTIES)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
