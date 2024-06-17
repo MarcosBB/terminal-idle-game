@@ -26,7 +26,7 @@ class Game:
 
     def buy_property(self, property_name, quantity=1):
         if self.get_multiplier == MAX_VALUE:
-            possible_quantity = (self.money // PROPERTIES_VALUES[property_name]) 
+            possible_quantity = self.money // PROPERTIES_VALUES[property_name]
             self.money -= possible_quantity * PROPERTIES_VALUES[property_name]
             self.properties[property_name] += possible_quantity
 

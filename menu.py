@@ -1,4 +1,5 @@
 from configs import DEFAULT_PROPERTIES, PROPERTIES_INCOME, MAX_VALUE
+from numerize.numerize import numerize
 
 
 class Menu:
@@ -8,9 +9,9 @@ class Menu:
     def header(self):
         multiplier_symbol = "X" if MAX_VALUE != self.game.get_multiplier else ""
         return (
-            f"Money: {self.game.money}$ "
-            + f"| Money per second: {self.game.money_per_second}$ "
-            + f"| Multiplier: {str(self.game.get_multiplier) + multiplier_symbol}" 
+            f"Money: {numerize(self.game.money)}$ "
+            + f"| Money per second: {numerize(self.game.money_per_second)}$ "
+            + f"| Multiplier: {str(self.game.get_multiplier) + multiplier_symbol}"
         )
 
     def footer(self):
@@ -22,9 +23,7 @@ class Menu:
         for key, value in self.game.properties.items():
             count += 1
             if value != 0:
-                return_value += (
-                    f"{count}. {key}: {value}    {value * PROPERTIES_INCOME[key]} /s\n"
-                )
+                return_value += f"{count}. {key}: {numerize(value)}    {numerize(value * PROPERTIES_INCOME[key])} /s\n"
             else:
                 return_value += f"{count}. {key}: {value}\n"
         return return_value
