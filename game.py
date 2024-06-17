@@ -17,9 +17,9 @@ class Game():
             self.money += self.properties[key] * PROPERTIES_INCOME[key]
 
     def buy_property(self, property_name, quantity=1):
-        if self.money >= PROPERTIES_VALUES[property_name]:
-            self.money -= PROPERTIES_VALUES[property_name]
-            self.properties[property_name] += quantity
+        if self.money >= PROPERTIES_VALUES[property_name] * self.get_multiplier:
+            self.money -= PROPERTIES_VALUES[property_name] * self.get_multiplier
+            self.properties[property_name] += quantity * self.get_multiplier
             return True
         return False
     
@@ -38,9 +38,10 @@ class Game():
     def change_multiplier(self):
         multiplier_len = len(MULTIPLIER_OPTIONS)
         self.multiplier_index += 1
-        if self.multiplier_index > multiplier_len:
+        if self.multiplier_index >= multiplier_len:
             self.multiplier_index = 0
 
+    @property
     def get_multiplier(self):
         return MULTIPLIER_OPTIONS[self.multiplier_index]
     

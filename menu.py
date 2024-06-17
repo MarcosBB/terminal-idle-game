@@ -1,6 +1,4 @@
-from configs import DEFAULT_PROPERTIES
-# from pynput import keyboard
-# from pick import pick
+from configs import DEFAULT_PROPERTIES, PROPERTIES_INCOME
 
 
 class Menu():
@@ -8,17 +6,20 @@ class Menu():
         self.game = game
 
     def header(self):
-        return f"Money: {self.game.money}$ | Money per second: {self.game.money_per_second}$ | Multiplier: {self.game.get_multiplier()}X"
+        return f"Money: {self.game.money}$ | Money per second: {self.game.money_per_second}$ | Multiplier: {self.game.get_multiplier}X"
     
     def footer(self):
-        return "1 - Buy 1 property | 2 - Buy 10 properties | 3 - Save | 4 - Exit" 
+        return f"(1-{len(DEFAULT_PROPERTIES)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit" 
 
     def properties(self):
         return_value = ""
         count = 0
         for key, value in self.game.properties.items():
             count += 1
-            return_value += f"{count}. {key}: {value}\n"
+            if value != 0:
+                return_value += f"{count}. {key}: {value}    {value * PROPERTIES_INCOME[key]} /s\n"
+            else:
+                return_value += f"{count}. {key}: {value}\n"
         return return_value
     
 
