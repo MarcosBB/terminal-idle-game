@@ -5,7 +5,7 @@ import os
 from configs import PROPERTIES
 from pynput import keyboard
 
-game = Game(money=230)
+game = Game()
 menu = Menu(game)
 
 

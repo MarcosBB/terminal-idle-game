@@ -1,5 +1,5 @@
 DEFAULT_PROPERTIES = {
-    "farmer": 0,
+    "farmer": 1,
     "cow": 0,
     "plantation": 0,
     "truck": 0,
