@@ -2,7 +2,7 @@ from src.game import Game
 from src.menu import Menu
 import time
 import os
-from src.configs import PROPERTIES
+from src.configs import PROPERTIES, SECONDS_PER_FRAME
 from pynput import keyboard
 
 game = Game()
@@ -27,5 +27,5 @@ with keyboard.Listener(on_press=on_press) as listener:
     while True:
         game.earn_money()
         menu.print_menu()
-        time.sleep(1)
+        time.sleep(SECONDS_PER_FRAME)
         os.system("clear")

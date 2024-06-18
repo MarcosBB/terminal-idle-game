@@ -5,6 +5,7 @@ from src.configs import (
     PROPERTIES_VALUES,
     MULTIPLIER_OPTIONS,
     MAX_VALUE,
+    SECONDS_PER_FRAME,
 )
 
 
@@ -22,7 +23,7 @@ class Game:
 
     def earn_money(self):
         for key in self.properties:
-            self.money += self.properties[key] * PROPERTIES_INCOME[key]
+            self.money += self.properties[key] * PROPERTIES_INCOME[key] * SECONDS_PER_FRAME
 
     def buy_property(self, property_name, quantity=1):
         if self.get_multiplier == MAX_VALUE:
