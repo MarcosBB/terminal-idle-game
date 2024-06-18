@@ -1,8 +1,8 @@
-from game import Game
-from menu import Menu
+from src.game import Game
+from src.menu import Menu
 import time
 import os
-from configs import PROPERTIES
+from src.configs import PROPERTIES
 from pynput import keyboard
 
 game = Game()

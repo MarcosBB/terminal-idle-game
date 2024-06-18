@@ -1,4 +1,4 @@
-from configs import DEFAULT_PROPERTIES, PROPERTIES_INCOME, MAX_VALUE
+from src.configs import DEFAULT_PROPERTIES, PROPERTIES_INCOME, MAX_VALUE
 from numerize.numerize import numerize
 
 

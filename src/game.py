@@ -1,4 +1,4 @@
-from configs import (
+from src.configs import (
     DEFAULT_MONEY,
     DEFAULT_PROPERTIES,
     PROPERTIES_INCOME,
