@@ -9,7 +9,7 @@ class Menu:
     def header(self):
         multiplier_symbol = "X" if MAX_VALUE != self.game.get_multiplier else ""
         return (
-            f"Money: {numerize(self.game.money)}$ "
+            f"Money: {numerize(round(self.game.money))}$ "
             + f"| Money per second: {numerize(self.game.money_per_second)}$ "
             + f"| Multiplier: {str(self.game.get_multiplier) + multiplier_symbol}"
         )

@@ -22,10 +22,21 @@ def on_press(key):
     if key == keyboard.KeyCode.from_char("s"):
         game.save()
 
-
 with keyboard.Listener(on_press=on_press) as listener:
+    frame_rate_problem = 0
     while True:
+        start_time = time.time()
+        os.system("clear")
         game.earn_money()
         menu.print_menu()
-        time.sleep(SECONDS_PER_FRAME)
-        os.system("clear")
+        end_time = time.time()
+        run_time = end_time - start_time
+
+        if run_time < SECONDS_PER_FRAME:
+            if frame_rate_problem > 10:
+                print(f"WARNING: Frame rate problem detected {frame_rate_problem} times!")
+            time.sleep(SECONDS_PER_FRAME - run_time)
+        else:
+            frame_rate_problem += 1
+        
+        
