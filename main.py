@@ -15,6 +15,7 @@ def on_press(key):
             game.buy_property(PROPERTIES[i - 1], 1)
             game.update_money_per_second()
             game.update_money_per_second_by_property()
+            menu.update_properties_rich_table()
 
     if key == keyboard.KeyCode.from_char("x"):
         game.change_multiplier()
@@ -28,6 +29,7 @@ with keyboard.Listener(on_press=on_press) as listener:
         start_time = time.time()
         os.system("clear")
         game.earn_money()
+        menu.update_header()
         menu.print_menu()
         end_time = time.time()
         run_time = end_time - start_time
