@@ -9,6 +9,7 @@ class Menu:
     def __init__(self, game):
         self.game = game
         self.console = Console()
+        self.update_properties_table()
 
     def header(self):
         multiplier_symbol = "X" if MAX_VALUE != self.game.get_multiplier else ""
@@ -21,7 +22,7 @@ class Menu:
     def footer(self):
         return f"(1-{len(DEFAULT_PROPERTIES)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
     
-    def properties(self):
+    def update_properties_table(self):
         table = Table(title="", box=None)
         table.add_column("Buy Option", justify="right", style="white")
         table.add_column("Value", justify="left", style="white")
@@ -39,10 +40,9 @@ class Menu:
                 numerize(property_quantity),
                 f"{numerize(property_quantity * PROPERTIES_INCOME[property_name])}$",
             )
-
-        return table
-        
+        self.properties_table = table
+    
     def print_menu(self):
         print(self.header())
-        self.console.print(self.properties())
+        print(self.properties_table)
         print(self.footer())
