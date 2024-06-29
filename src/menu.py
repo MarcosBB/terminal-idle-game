@@ -7,7 +7,7 @@ from rich.table import Table
 class Menu:
     def __init__(self, game):
         self.game = game
-        self.update_properties_table()
+        self.update_properties_rich_table()
         self.update_footer()
         self.update_header()
 
@@ -22,7 +22,7 @@ class Menu:
     def update_footer(self):
         self.footer = f"(1-{len(DEFAULT_PROPERTIES)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
     
-    def update_properties_table(self):
+    def update_properties_rich_table(self):
         table = Table(title="", box=None)
         table.add_column("Buy Option", justify="right", style="white")
         table.add_column("Value", justify="left", style="white")
@@ -41,6 +41,17 @@ class Menu:
                 f"{numerize(property_quantity * PROPERTIES_INCOME[property_name])}$",
             )
         self.properties_table = table
+
+    def update_properties_table(self):
+        return_value = ""
+        count = 0
+        for key, value in self.game.properties.items():
+            count += 1
+            if value != 0:
+                return_value += f"{count}. {key}: {numerize(value)}    {numerize(value * PROPERTIES_INCOME[key])} /s\n"
+            else:
+                return_value += f"{count}. {key}: {value}\n"
+        self.properties_table = return_value
     
     def print_menu(self):
         print(self.header)
