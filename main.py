@@ -29,6 +29,7 @@ with keyboard.Listener(on_press=on_press) as listener:
         start_time = time.time()
         os.system("clear")
         game.earn_money()
+        menu.update_header()
         menu.print_menu()
         end_time = time.time()
         run_time = end_time - start_time

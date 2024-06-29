@@ -2,25 +2,26 @@ from src.configs import DEFAULT_PROPERTIES, PROPERTIES_INCOME, MAX_VALUE, PROPER
 from numerize.numerize import numerize
 from rich import print
 from rich.table import Table
-from rich.console import Console
+# from rich.console import Console
 
 
 class Menu:
     def __init__(self, game):
         self.game = game
-        self.console = Console()
         self.update_properties_table()
+        self.update_footer()
+        self.update_header()
 
-    def header(self):
+    def update_header(self):
         multiplier_symbol = "X" if MAX_VALUE != self.game.get_multiplier else ""
-        return (
+        self.header = (
             f"Money: [bold green]{numerize(round(self.game.money))}$[/bold green] "
             + f"| Money per second: [green]{numerize(self.game.money_per_second)}[/green]$ "
             + f"| Multiplier: [blue]{str(self.game.get_multiplier) + multiplier_symbol}[/blue]"
         )
 
-    def footer(self):
-        return f"(1-{len(DEFAULT_PROPERTIES)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
+    def update_footer(self):
+        self.footer = f"(1-{len(DEFAULT_PROPERTIES)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
     
     def update_properties_table(self):
         table = Table(title="", box=None)
@@ -43,6 +44,8 @@ class Menu:
         self.properties_table = table
     
     def print_menu(self):
-        print(self.header())
+        print(self.header)
+        print()
         print(self.properties_table)
-        print(self.footer())
+        print()
+        print(self.footer)
