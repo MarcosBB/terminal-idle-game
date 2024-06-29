@@ -2,7 +2,6 @@ from src.configs import DEFAULT_PROPERTIES, PROPERTIES_INCOME, MAX_VALUE, PROPER
 from numerize.numerize import numerize
 from rich import print
 from rich.table import Table
-# from rich.console import Console
 
 
 class Menu:
