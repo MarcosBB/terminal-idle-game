@@ -1,8 +1,6 @@
 from src.configs import (
     DEFAULT_MONEY,
     DEFAULT_PROPERTIES,
-    PROPERTIES_INCOME,
-    PROPERTIES_VALUES,
     MULTIPLIER_OPTIONS,
     MAX_VALUE,
     SECONDS_PER_FRAME,
@@ -22,32 +20,29 @@ class Game:
         self.multiplier_index = 0
 
     def earn_money(self):
-        for key in self.properties:
-            self.money += self.properties[key] * PROPERTIES_INCOME[key] * SECONDS_PER_FRAME
+        for property in self.properties:
+            self.money += property["quantity"] * property["income"] * SECONDS_PER_FRAME
 
-    def buy_property(self, property_name, quantity=1):
+    def buy_property(self, index, quantity=1):
         if self.get_multiplier == MAX_VALUE:
-            possible_quantity = self.money // PROPERTIES_VALUES[property_name]
-            self.money -= possible_quantity * PROPERTIES_VALUES[property_name]
-            self.properties[property_name] += possible_quantity
+            possible_quantity = self.money // self.properties[index]["value"]
+            self.money -= possible_quantity * self.properties[index]["value"]
+            self.properties[index]["quantity"] += possible_quantity
 
-        elif self.money >= PROPERTIES_VALUES[property_name] * self.get_multiplier:
-            self.money -= PROPERTIES_VALUES[property_name] * self.get_multiplier
-            self.properties[property_name] += quantity * self.get_multiplier
+        elif self.money >= self.properties[index]["value"] * self.get_multiplier:
+            self.money -= self.properties[index]["value"] * self.get_multiplier
+            self.properties[index]["quantity"] += quantity * self.get_multiplier
 
     def update_money_per_second(self):
         self.money_per_second = 0
-        for key in self.properties:
-            self.money_per_second += self.properties[key] * PROPERTIES_INCOME[key]
+        for property in self.properties:
+            self.money_per_second += property["quantity"] * property["income"]
         return self.money_per_second
 
     def update_money_per_second_by_property(self):
         self.money_per_second_by_property = {}
-        for key in self.properties:
-            self.money_per_second_by_property[key] = (
-                self.properties[key] * PROPERTIES_INCOME[key]
-            )
-        return self.money_per_second_by_property
+        for property in self.properties:
+           property["money_per_second"] = property["quantity"] * property["income"]
 
     def change_multiplier(self):
         multiplier_len = len(MULTIPLIER_OPTIONS)
