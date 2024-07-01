@@ -20,7 +20,7 @@ class Menu:
         )
 
     def update_footer(self):
-        self.footer = f"(1-{len(DEFAULT_PROPERTIES)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
+        self.footer = f"(1-{len(self.game.properties)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
 
     def update_properties_rich_table(self):
         table = Table(title="", box=None)

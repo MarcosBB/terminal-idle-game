@@ -1,7 +1,6 @@
 from unittest import TestCase
 from src.game import Game
 from src.configs import MULTIPLIER_OPTIONS, MAX_VALUE, SECONDS_PER_FRAME
-from unittest.mock import patch
 
 
 class GameTestCase(TestCase):
