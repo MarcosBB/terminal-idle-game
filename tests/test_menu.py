@@ -29,11 +29,6 @@ class MenuTestCase(TestCase):
         )
         self.menu = Menu(self.game)
 
-    # def test_it_should_be_initialized_correctly(self):
-    #     self.assertEqual(self.menu.game, self.game)
-    #     self.assertEqual(self.menu.header, "")
-    #     self.assertEqual(self.menu.properties_rich_table, "")
-
     def test_it_should_update_footer_correctly(self):
         self.menu.update_footer()
         self.assertEqual(
