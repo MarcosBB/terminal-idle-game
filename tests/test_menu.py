@@ -5,7 +5,6 @@ from src.configs import MULTIPLIER_OPTIONS, MAX_VALUE, SECONDS_PER_FRAME
 from unittest.mock import patch
 
 
-
 class MenuTestCase(TestCase):
     def setUp(self):
         self.properties = [
@@ -39,14 +38,14 @@ class MenuTestCase(TestCase):
         self.menu.update_footer()
         self.assertEqual(
             self.menu.footer,
-            "(1-2) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
+            "(1-2) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit",
         )
 
     def test_it_should_update_header_correctly(self):
         self.menu.update_header()
         self.assertEqual(
             self.menu.header,
-            "Money: [bold green]1K$[/bold green] | Money per second: [green]10[/green]$ | Multiplier: [blue]1X[/blue]"
+            "Money: [bold green]1K$[/bold green] | Money per second: [green]10[/green]$ | Multiplier: [blue]1X[/blue]",
         )
 
     def test_it_should_update_header_correctly_with_max_value(self):
@@ -54,14 +53,14 @@ class MenuTestCase(TestCase):
         self.menu.update_header()
         self.assertEqual(
             self.menu.header,
-            "Money: [bold green]1K$[/bold green] | Money per second: [green]10[/green]$ | Multiplier: [blue]Max[/blue]"
+            "Money: [bold green]1K$[/bold green] | Money per second: [green]10[/green]$ | Multiplier: [blue]Max[/blue]",
         )
 
     def test_it_should_update_properties_rich_table(self):
         self.menu.properties_table = None
         self.menu.update_properties_rich_table()
         self.assertIsNotNone(self.menu.properties_table)
-        
+
     def test_it_should_update_properties_table(self):
         self.menu.properties_table = None
         self.menu.update_properties_table()
