@@ -23,6 +23,7 @@ def on_press(key):
     if key == keyboard.KeyCode.from_char("s"):
         game.save()
 
+
 with keyboard.Listener(on_press=on_press) as listener:
     frame_rate_problem = 0
     while True:
@@ -36,9 +37,9 @@ with keyboard.Listener(on_press=on_press) as listener:
 
         if run_time < SECONDS_PER_FRAME:
             if frame_rate_problem > 10:
-                print(f"WARNING: Frame rate problem detected {frame_rate_problem} times!")
+                print(
+                    f"WARNING: Frame rate problem detected {frame_rate_problem} times!"
+                )
             time.sleep(SECONDS_PER_FRAME - run_time)
         else:
             frame_rate_problem += 1
-        
-        

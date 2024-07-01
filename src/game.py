@@ -41,7 +41,7 @@ class Game:
     def update_money_per_second_by_property(self):
         self.money_per_second_by_property = {}
         for property in self.properties:
-           property["money_per_second"] = property["quantity"] * property["income"]
+            property["money_per_second"] = property["quantity"] * property["income"]
 
     def change_multiplier(self):
         multiplier_len = len(MULTIPLIER_OPTIONS)

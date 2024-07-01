@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 class GameTestCase(TestCase):
     def setUp(self):
-        self.properties=[
+        self.properties = [
             {
                 "name": "farmer",
                 "value": 100,

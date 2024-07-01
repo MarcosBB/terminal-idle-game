@@ -21,7 +21,7 @@ class Menu:
 
     def update_footer(self):
         self.footer = f"(1-{len(DEFAULT_PROPERTIES)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
-    
+
     def update_properties_rich_table(self):
         table = Table(title="", box=None)
         table.add_column("Buy Option", justify="right", style="white")
@@ -52,7 +52,7 @@ class Menu:
             else:
                 return_value += f"{count}. {property["name"]}: {property["quantity"]}\n"
         self.properties_table = return_value
-    
+
     def print_menu(self):
         print(self.header)
         print()

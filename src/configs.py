@@ -58,5 +58,4 @@ DEFAULT_PROPERTIES = [
         "quantity": 0,
         "money_per_second": 0,
     },
-
 ]
