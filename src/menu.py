@@ -1,4 +1,4 @@
-from src.configs import DEFAULT_PROPERTIES, PROPERTIES_INCOME, MAX_VALUE, PROPERTIES_VALUES
+from src.configs import DEFAULT_PROPERTIES, MAX_VALUE
 from numerize.numerize import numerize
 from rich import print
 from rich.table import Table
@@ -20,8 +20,8 @@ class Menu:
         )
 
     def update_footer(self):
-        self.footer = f"(1-{len(DEFAULT_PROPERTIES)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
-    
+        self.footer = f"(1-{len(self.game.properties)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
+
     def update_properties_rich_table(self):
         table = Table(title="", box=None)
         table.add_column("Buy Option", justify="right", style="white")
@@ -31,28 +31,28 @@ class Menu:
         table.add_column("Money/s", justify="right", style="green")
 
         count = 0
-        for property_name, property_quantity in self.game.properties.items():
+        for property in self.game.properties:
             count += 1
             table.add_row(
                 str(count),
-                f"{PROPERTIES_VALUES[property_name]}$",
-                property_name.capitalize(),
-                numerize(property_quantity),
-                f"{numerize(property_quantity * PROPERTIES_INCOME[property_name])}$",
+                f"{property["value"]}$",
+                property["name"].capitalize(),
+                numerize(property["quantity"]),
+                f"{numerize(property["money_per_second"])}$",
             )
         self.properties_table = table
 
     def update_properties_table(self):
         return_value = ""
         count = 0
-        for key, value in self.game.properties.items():
+        for property in self.game.properties:
             count += 1
-            if value != 0:
-                return_value += f"{count}. {key}: {numerize(value)}    {numerize(value * PROPERTIES_INCOME[key])} /s\n"
+            if property["quantity"] != 0:
+                return_value += f"{count}. {property["name"]}: {numerize(property["quantity"])}    {numerize(property["money_per_second"])} /s\n"
             else:
-                return_value += f"{count}. {key}: {value}\n"
+                return_value += f"{count}. {property["name"]}: {property["quantity"]}\n"
         self.properties_table = return_value
-    
+
     def print_menu(self):
         print(self.header)
         print()
