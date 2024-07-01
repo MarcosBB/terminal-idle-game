@@ -16,7 +16,6 @@ class Game:
         self.money = money
         self.properties = properties
         self.money_per_second = self.update_money_per_second()
-        self.money_per_second_by_property = self.update_money_per_second_by_property()
         self.multiplier_index = 0
 
     def earn_money(self):
