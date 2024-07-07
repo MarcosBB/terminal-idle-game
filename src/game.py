@@ -12,25 +12,28 @@ class Game:
         self,
         properties=DEFAULT_PROPERTIES,
         money=DEFAULT_MONEY,
+        multiplier_options=MULTIPLIER_OPTIONS,
+
     ):
         self.money = money
         self.properties = properties
-        self.money_per_second = self.update_money_per_second()
         self.multiplier_index = 0
+        self.multiplier_options = multiplier_options
+        self.money_per_second = self.update_money_per_second()
 
     def earn_money(self):
         for property in self.properties:
             self.money += property["quantity"] * property["income"] * SECONDS_PER_FRAME
 
-    def buy_property(self, index, quantity=1):
+    def buy_property(self, index):
         if self.get_multiplier == MAX_VALUE:
-            possible_quantity = self.money // self.properties[index]["value"]
-            self.money -= possible_quantity * self.properties[index]["value"]
-            self.properties[index]["quantity"] += possible_quantity
+            quantity = self.money // self.properties[index]["value"]
+        else:
+            quantity = self.get_multiplier
 
-        elif self.money >= self.properties[index]["value"] * self.get_multiplier:
-            self.money -= self.properties[index]["value"] * self.get_multiplier
-            self.properties[index]["quantity"] += quantity * self.get_multiplier
+        if quantity and self.money >= self.properties[index]["value"] * quantity:
+            self.money -= self.properties[index]["value"] * quantity
+            self.properties[index]["quantity"] += quantity
 
     def update_money_per_second(self):
         self.money_per_second = 0
@@ -44,14 +47,14 @@ class Game:
             property["money_per_second"] = property["quantity"] * property["income"]
 
     def change_multiplier(self):
-        multiplier_len = len(MULTIPLIER_OPTIONS)
+        multiplier_len = len(self.multiplier_options)
         self.multiplier_index += 1
         if self.multiplier_index >= multiplier_len:
             self.multiplier_index = 0
 
     @property
     def get_multiplier(self):
-        return MULTIPLIER_OPTIONS[self.multiplier_index]
+        return self.multiplier_options[self.multiplier_index]
 
     def save(self):
         pass

@@ -1,4 +1,4 @@
-from src.configs import DEFAULT_PROPERTIES, MAX_VALUE
+from src.configs import MAX_VALUE
 from numerize.numerize import numerize
 from rich import print
 from rich.table import Table
@@ -20,7 +20,7 @@ class Menu:
         )
 
     def update_footer(self):
-        self.footer = f"(1-{len(self.game.properties)}) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit"
+        self.footer = f"(1-{len(self.game.properties)}) Buy property | (x) Change multiplier | (s) Save | (ctrl + c) Exit"
 
     def update_properties_rich_table(self):
         table = Table(title="", box=None)

@@ -4,6 +4,7 @@ from src.configs import MULTIPLIER_OPTIONS, MAX_VALUE, SECONDS_PER_FRAME
 
 
 class GameTestCase(TestCase):
+
     def setUp(self):
         self.properties = [
             {
@@ -24,6 +25,7 @@ class GameTestCase(TestCase):
         self.game = Game(
             properties=self.properties,
             money=1000,
+            multiplier_options=[1, 10, 100, MAX_VALUE],
         )
 
     def test_it_should_be_initialized_correctly(self):
@@ -33,13 +35,21 @@ class GameTestCase(TestCase):
         self.assertEqual(self.game.money_per_second, 10)
 
     def test_it_should_buy_property_correctly(self):
-        self.game.buy_property(0, 4)
-        self.assertEqual(self.game.properties[0]["quantity"], 5)
+        self.game.buy_property(index=0)
+        self.assertEqual(self.game.properties[0]["quantity"], 2)
+        self.assertEqual(self.game.money, 900)
 
-    def test_it_should_buy_property_with_multiplier_correctly(self):
-        self.game.multiplier_index = MULTIPLIER_OPTIONS.index(MAX_VALUE)
-        self.game.buy_property(0)
+    def test_it_should_not_buy_property_when_money_is_not_enough(self):
+        self.game.money = 20
+        self.game.buy_property(index=0)
+        self.assertEqual(self.game.properties[0]["quantity"], 1)
+        self.assertEqual(self.game.money, 20)
+
+    def test_it_should_buy_property_with_max_value_correctly(self):
+        self.game.multiplier_index = 3
+        self.game.buy_property(index=0)
         self.assertEqual(self.game.properties[0]["quantity"], 11)
+        self.assertEqual(self.game.money, 0)
 
     def test_it_should_change_multiplier_correctly(self):
         self.game.change_multiplier()

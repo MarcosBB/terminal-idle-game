@@ -33,7 +33,7 @@ class MenuTestCase(TestCase):
         self.menu.update_footer()
         self.assertEqual(
             self.menu.footer,
-            "(1-2) Buy property | (x) Change buy modifier | (s) Save | (ctrl + c) Exit",
+            "(1-2) Buy property | (x) Change multiplier | (s) Save | (ctrl + c) Exit",
         )
 
     def test_it_should_update_header_correctly(self):

@@ -12,7 +12,7 @@ menu = Menu(game)
 def on_press(key):
     for i in range(1, len(game.properties) + 1):
         if key == keyboard.KeyCode.from_char(str(i)):
-            game.buy_property(index=i - 1, quantity=1)
+            game.buy_property(index=i - 1)
             game.update_money_per_second()
             game.update_money_per_second_by_property()
             menu.update_properties_rich_table()
