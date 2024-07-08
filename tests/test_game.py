@@ -3,6 +3,7 @@ from src.game import Game
 from src.configs import MULTIPLIER_OPTIONS, MAX_VALUE, SECONDS_PER_FRAME
 from parameterized import parameterized
 
+
 class GameTestCase(TestCase):
 
     def setUp(self):
@@ -34,16 +35,19 @@ class GameTestCase(TestCase):
         self.assertEqual(self.game.multiplier_index, 0)
         self.assertEqual(self.game.money_per_second, 10)
 
-
-    @parameterized.expand([
-        (1000, 0, 2, 900),
-        (1000, 1, 6, 500),
-        (1000, 2, 1, 1000),
-        (1000, 3, 11, 0),
-        (20, 1, 1, 20),
-        (999, 3, 10, 99),
-    ])
-    def test_it_should_buy_property_correctly(self, money, multiplier_index, expected_quantity, expected_money):
+    @parameterized.expand(
+        [
+            (1000, 0, 2, 900),
+            (1000, 1, 6, 500),
+            (1000, 2, 1, 1000),
+            (1000, 3, 11, 0),
+            (20, 1, 1, 20),
+            (999, 3, 10, 99),
+        ]
+    )
+    def test_it_should_buy_property_correctly(
+        self, money, multiplier_index, expected_quantity, expected_money
+    ):
         self.game.money = money
         self.game.multiplier_index = multiplier_index
         self.game.buy_property(index=0)
