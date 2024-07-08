@@ -164,3 +164,6 @@ cython_debug/
 # Cosmic-ray
 cr.sqlite
 report.html
+
+# vscode
+.vscode/
