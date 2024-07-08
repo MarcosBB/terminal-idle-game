@@ -13,7 +13,6 @@ class Game:
         properties=DEFAULT_PROPERTIES,
         money=DEFAULT_MONEY,
         multiplier_options=MULTIPLIER_OPTIONS,
-
     ):
         self.money = money
         self.properties = properties
