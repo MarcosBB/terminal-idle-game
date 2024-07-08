@@ -54,9 +54,15 @@ class GameTestCase(TestCase):
         self.assertEqual(self.game.properties[0]["quantity"], expected_quantity)
         self.assertEqual(self.game.money, expected_money)
 
-    def test_it_should_change_multiplier_correctly(self):
+    @parameterized.expand([
+        (0, 1),
+        (3, 0),
+        (7, 0),
+    ])
+    def test_it_should_change_multiplier_correctly(self, multiplier_index, expected_index):
+        self.game.multiplier_index = multiplier_index
         self.game.change_multiplier()
-        self.assertEqual(self.game.multiplier_index, 1)
+        self.assertEqual(self.game.multiplier_index, expected_index)
 
     def test_it_should_change_multiplier_correctly_when_it_is_max_value(self):
         self.game.multiplier_index = len(MULTIPLIER_OPTIONS) - 1
