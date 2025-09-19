@@ -35,7 +35,7 @@ class Menu:
             count += 1
             table.add_row(
                 str(count),
-                f"{property["value"]}$",
+                f"{numerize(property["value"])}$",
                 property["name"].capitalize(),
                 numerize(property["quantity"]),
                 f"{numerize(property["money_per_second"])}$",
