@@ -59,3 +59,5 @@ try:
                     frame_rate_problem += 1
 except KeyboardInterrupt:
     console.print("\nBye!")
+finally:
+    game.save()
