@@ -1,5 +1,7 @@
 DEFAULT_MONEY = 0
 
+SAVE_FILE_PATH = "savegame.json"
+
 MAX_VALUE = "Max"
 
 MULTIPLIER_OPTIONS = [1, 10, 100, MAX_VALUE]

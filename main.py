@@ -1,11 +1,22 @@
 from src.game import Game
 from src.menu import Menu
+import argparse
 import time
 import os
 from src.configs import SECONDS_PER_FRAME
 from pynput import keyboard
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--reset",
+    action="store_true",
+    help="Start a new game instead of loading the existing save",
+)
+args = parser.parse_args()
+
 game = Game()
+if not args.reset:
+    game.load()
 menu = Menu(game)
 
 

@@ -1,3 +1,6 @@
+import json
+import os
+import tempfile
 from unittest import TestCase
 from src.game import Game
 from src.configs import MULTIPLIER_OPTIONS, MAX_VALUE, SECONDS_PER_FRAME
@@ -23,11 +26,19 @@ class GameTestCase(TestCase):
                 "money_per_second": 0,
             },
         ]
+        self.save_file = tempfile.NamedTemporaryFile(suffix=".json", delete=False)
+        self.save_file.close()
+        os.remove(self.save_file.name)
         self.game = Game(
             properties=self.properties,
             money=1000,
             multiplier_options=[1, 5, 500, MAX_VALUE],
+            save_file_path=self.save_file.name,
         )
+
+    def tearDown(self):
+        if os.path.exists(self.save_file.name):
+            os.remove(self.save_file.name)
 
     def test_it_should_be_initialized_correctly(self):
         self.assertEqual(self.game.money, 1000)
@@ -90,3 +101,77 @@ class GameTestCase(TestCase):
 
     def test_it_should_get_multiplier_correctly(self):
         self.assertEqual(self.game.get_multiplier, MULTIPLIER_OPTIONS[0])
+
+    def test_it_should_save_game_correctly(self):
+        self.game.money = 1500
+        self.game.multiplier_index = 2
+        self.game.properties[0]["quantity"] = 3
+        self.game.properties[1]["quantity"] = 1
+
+        self.game.save()
+
+        with open(self.save_file.name) as save_file:
+            data = json.load(save_file)
+
+        self.assertEqual(
+            data,
+            {
+                "money": 1500,
+                "multiplier_index": 2,
+                "properties": {"farmer": 3, "cow": 1},
+            },
+        )
+
+    def test_it_should_load_game_correctly(self):
+        with open(self.save_file.name, "w") as save_file:
+            json.dump(
+                {
+                    "money": 2500,
+                    "multiplier_index": 1,
+                    "properties": {"farmer": 4, "cow": 2},
+                },
+                save_file,
+            )
+
+        self.game.load()
+
+        self.assertEqual(self.game.money, 2500)
+        self.assertEqual(self.game.multiplier_index, 1)
+        self.assertEqual(self.game.properties[0]["quantity"], 4)
+        self.assertEqual(self.game.properties[1]["quantity"], 2)
+        self.assertEqual(self.game.money_per_second, 4 * 10 + 2 * 20)
+        self.assertEqual(self.game.properties[0]["money_per_second"], 4 * 10)
+        self.assertEqual(self.game.properties[1]["money_per_second"], 2 * 20)
+
+    def test_it_should_do_nothing_when_loading_without_a_save_file(self):
+        self.game.load()
+
+        self.assertEqual(self.game.money, 1000)
+        self.assertEqual(self.game.multiplier_index, 0)
+        self.assertEqual(self.game.properties, self.properties)
+
+    def test_it_should_do_nothing_when_loading_a_corrupted_save_file(self):
+        with open(self.save_file.name, "w") as save_file:
+            save_file.write("not valid json")
+
+        self.game.load()
+
+        self.assertEqual(self.game.money, 1000)
+        self.assertEqual(self.game.multiplier_index, 0)
+        self.assertEqual(self.game.properties, self.properties)
+
+    def test_it_should_ignore_unknown_properties_when_loading(self):
+        with open(self.save_file.name, "w") as save_file:
+            json.dump(
+                {
+                    "money": 500,
+                    "multiplier_index": 0,
+                    "properties": {"farmer": 2, "dragon": 99},
+                },
+                save_file,
+            )
+
+        self.game.load()
+
+        self.assertEqual(self.game.properties[0]["quantity"], 2)
+        self.assertEqual(self.game.properties[1]["quantity"], 0)

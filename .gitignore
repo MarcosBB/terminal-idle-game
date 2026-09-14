@@ -165,5 +165,8 @@ cython_debug/
 cr.sqlite
 report.html
 
+# Game save data
+savegame.json
+
 # vscode
 .vscode/
