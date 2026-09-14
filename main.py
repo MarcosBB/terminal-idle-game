@@ -37,22 +37,25 @@ def on_press(key):
         game.save()
 
 
-with keyboard.Listener(on_press=on_press) as listener:
-    frame_rate_problem = 0
-    with Live(menu.render(), console=console, auto_refresh=False) as live:
-        while True:
-            start_time = time.time()
-            game.earn_money()
-            menu.update_header()
-            live.update(menu.render(), refresh=True)
-            end_time = time.time()
-            run_time = end_time - start_time
+try:
+    with keyboard.Listener(on_press=on_press) as listener:
+        frame_rate_problem = 0
+        with Live(menu.render(), console=console, auto_refresh=False) as live:
+            while True:
+                start_time = time.time()
+                game.earn_money()
+                menu.update_header()
+                live.update(menu.render(), refresh=True)
+                end_time = time.time()
+                run_time = end_time - start_time
 
-            if run_time < SECONDS_PER_FRAME:
-                if frame_rate_problem > 10:
-                    console.print(
-                        f"WARNING: Frame rate problem detected {frame_rate_problem} times!"
-                    )
-                time.sleep(SECONDS_PER_FRAME - run_time)
-            else:
-                frame_rate_problem += 1
+                if run_time < SECONDS_PER_FRAME:
+                    if frame_rate_problem > 10:
+                        console.print(
+                            f"WARNING: Frame rate problem detected {frame_rate_problem} times!"
+                        )
+                    time.sleep(SECONDS_PER_FRAME - run_time)
+                else:
+                    frame_rate_problem += 1
+except KeyboardInterrupt:
+    console.print("\nBye!")
