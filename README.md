@@ -1,5 +1,5 @@
 # Terminal IDLE Game
-It's a terminal [IDLE game](https://en.wikipedia.org/wiki/Incremental_game) where you can buy properties and earn money. Like [cookie clicker](https://orteil.dashnet.org/cookieclicker/) but in terminal.
+A terminal-based [idle/incremental game](https://en.wikipedia.org/wiki/Incremental_game) inspired by [Cookie Clicker](https://orteil.dashnet.org/cookieclicker/): buy properties — from a simple farmer to a whole space station — that generate passive income automatically, and watch your money grow in real time, right in your terminal.
 
 https://github.com/user-attachments/assets/2437651c-b921-4bf8-a0f8-003c63b38024
 
@@ -20,12 +20,20 @@ https://github.com/user-attachments/assets/2437651c-b921-4bf8-a0f8-003c63b38024
     ```bash
     python3 main.py
     ```
+    To start a fresh game instead of loading your existing save, run it with `--reset`:
+    ```bash
+    python3 main.py --reset
+    ```
 
-2. Follow the instructions on the screen
-    - press some number to buy a property
-    - press `x` to change multiplier
-    - press `s` to save the game
+2. Each property in the table generates money per second based on how many you own. Buy properties to increase your income and unlock progressively more expensive (and more profitable) ones as your money grows.
+
+3. Controls
+    - press a number key (`1`-`12`) to buy the matching property
+    - press `x` to cycle the buy multiplier (`1` → `10` → `100` → `Max`, which buys as many as you can afford)
+    - press `s` to save your progress to `savegame.json`
     - press `ctrl + c` to exit the game
+
+    Your progress is only written to disk when you press `s`, so remember to save before exiting if you want to keep it.
 
 ## Tests
 ### Run tests
