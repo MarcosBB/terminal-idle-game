@@ -1,6 +1,6 @@
 from src.configs import MAX_VALUE
 from numerize.numerize import numerize
-from rich import print
+from rich.console import Group
 from rich.table import Table
 
 
@@ -53,9 +53,5 @@ class Menu:
                 return_value += f"{count}. {property["name"]}: {property["quantity"]}\n"
         self.properties_table = return_value
 
-    def print_menu(self):
-        print(self.header)
-        print()
-        print(self.properties_table)
-        print()
-        print(self.footer)
+    def render(self):
+        return Group(self.header, "", self.properties_table, "", self.footer)
