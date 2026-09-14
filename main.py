@@ -4,7 +4,7 @@ import argparse
 import time
 from rich.console import Console
 from rich.live import Live
-from src.configs import FRAMES_PER_SECOND, SECONDS_PER_FRAME
+from src.configs import DISPLAY_SECONDS_PER_FRAME, SECONDS_PER_FRAME
 from pynput import keyboard
 
 parser = argparse.ArgumentParser()
@@ -39,14 +39,15 @@ def on_press(key):
 
 with keyboard.Listener(on_press=on_press) as listener:
     frame_rate_problem = 0
-    with Live(
-        menu.render(), console=console, refresh_per_second=FRAMES_PER_SECOND
-    ) as live:
+    last_render_time = 0
+    with Live(menu.render(), console=console, auto_refresh=False) as live:
         while True:
             start_time = time.time()
             game.earn_money()
-            menu.update_header()
-            live.update(menu.render(), refresh=True)
+            if start_time - last_render_time >= DISPLAY_SECONDS_PER_FRAME:
+                menu.update_header()
+                live.update(menu.render(), refresh=True)
+                last_render_time = start_time
             end_time = time.time()
             run_time = end_time - start_time
 
