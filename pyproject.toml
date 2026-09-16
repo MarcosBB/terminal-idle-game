@@ -1,0 +1,18 @@
+[project]
+name = "terminal-idle-game"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12.3"
+dependencies = [
+    "numerize>=0.12",
+    "pynput>=1.8.2",
+    "rich>=15.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=26.5.1",
+    "cosmic-ray>=8.7.0",
+    "coverage>=7.16.1",
+    "parameterized>=0.9.0",
+]

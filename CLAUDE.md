@@ -8,50 +8,50 @@ A terminal-based idle/incremental game (like Cookie Clicker) built in Python. Th
 
 ## Commands
 
-Requires Python 3.12.3. A `.venv` already exists in the repo; activate it or install requirements yourself:
+Requires Python 3.12.3, managed via [uv](https://docs.astral.sh/uv/). Dependencies are declared in `pyproject.toml` and pinned in `uv.lock` (runtime deps: `rich`, `pynput`, `numerize`; dev deps in the `dev` dependency-group: `parameterized`, `black`, `coverage`, `cosmic-ray`). Sync the environment (creates `.venv`, installs Python 3.12.3 if needed):
 
 ```bash
-pip install -r requirements.txt
+uv sync
 ```
 
 Run the game:
 ```bash
-python3 main.py
+uv run main.py
 ```
 
 Run the game with a fresh save (skips loading `savegame.json`):
 ```bash
-python3 main.py --reset
+uv run main.py --reset
 ```
 
 Run all tests:
 ```bash
-python3 -m unittest
+uv run python3 -m unittest
 ```
 
 Run a single test file / case:
 ```bash
-python3 -m unittest tests.test_game
-python3 -m unittest tests.test_game.GameTestCase.test_it_should_buy_property_correctly
+uv run python3 -m unittest tests.test_game
+uv run python3 -m unittest tests.test_game.GameTestCase.test_it_should_buy_property_correctly_0
 ```
 
-Format code (black is a dependency, used per commit history — e.g. "running black"):
+Format code (black is a dev dependency, used per commit history — e.g. "running black"):
 ```bash
-black .
+uv run black .
 ```
 
 Coverage:
 ```bash
-coverage run -m unittest discover
-coverage report
-coverage html   # then open htmlcov/index.html
+uv run coverage run -m unittest discover
+uv run coverage report
+uv run coverage html   # then open htmlcov/index.html
 ```
 
 Mutation testing (cosmic-ray, configured in `crconfig.toml` against `src/game.py`):
 ```bash
-cosmic-ray init crconfig.toml cr.sqlite
-cosmic-ray exec crconfig.toml cr.sqlite
-cr-html cr.sqlite > report.html
+uv run cosmic-ray init crconfig.toml cr.sqlite
+uv run cosmic-ray exec crconfig.toml cr.sqlite
+uv run cr-html cr.sqlite > report.html
 ```
 
 ## Architecture
