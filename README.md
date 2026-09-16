@@ -1,5 +1,6 @@
 # Terminal IDLE Game
 A terminal-based [idle/incremental game](https://en.wikipedia.org/wiki/Incremental_game) inspired by [Cookie Clicker](https://orteil.dashnet.org/cookieclicker/): buy properties — from a simple farmer to a whole space station — that generate passive income automatically, and watch your money grow in real time, right in your terminal.
+<img width="735" height="336" alt="image" src="https://github.com/user-attachments/assets/c8c6f409-0a8c-474e-8b50-e793c86d0aa4" />
 
 https://github.com/user-attachments/assets/2437651c-b921-4bf8-a0f8-003c63b38024
 
